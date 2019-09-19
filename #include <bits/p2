@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+int find_minmum(int **arr,int n,int p,int mask){
+    if(p>=n) return 0;
+    int minimum=INT_MAX;
+    for(int j=0;j<n;j++)
+         if(!(mask&(1<<j))){
+             int smalloutput=find_minmum(arr,n,p+1,mask|(1<<j))+arr[p][j];
+             minimum=min(minimum,smalloutput);
+         }
+    return minimum;
+}
+int main() {
+	int n;
+	cin>>n;
+  int **arr=new int*[n];
+  for(int i=0;i<n;i++){
+      arr[i]=new int[n];
+      for(int j=0;j<n;j++)
+        cin>>arr[i][j];
+  }
+  cout<<find_minmum(arr,n,0,0);
+	return 0;
+}
